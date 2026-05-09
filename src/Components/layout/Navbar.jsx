@@ -1,89 +1,152 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { navigationData } from "../../constants/navigationData";
 import { siteData } from "../../constants/siteData";
+import { createWhatsAppLink } from "../../lib/whatsapp";
+import Button from "../ui/Button";
+import Container from "../ui/Container";
 
-export const Navbar = () => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-
-  const navigation = [
-    { name: "Beranda", href: "/" },
-    { name: "Tentang", href: "/tentang" },
-    { name: "Kontak", href: "/kontak" },
-  ];
-
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  const { pathname } = useLocation();
+  const contactLink = createWhatsAppLink(
+    "Halo Sanggar Putra Satria Laras, saya ingin menghubungi sanggar untuk informasi lebih lanjut."
+  );
 
   return (
-    <nav className="bg-putih-hangat/90 backdrop-blur-md sticky top-0 z-50 border-b border-krem">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="font-serif font-bold text-2xl text-coklat-gelap">
-                Satria Laras
-              </span>
-            </Link>
+    <header className="sticky top-0 z-50 border-b border-soga/10 bg-putih-hangat/90 backdrop-blur-xl">
+      <Container className="flex h-20 items-center justify-between gap-6">
+        <Link className="group flex items-center gap-3" to="/">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-soga/15 bg-coklat-gelap text-lg font-bold tracking-[0.2em] text-emas-redup shadow-sm">
+            PSL
+          </span>
+          <div>
+            <p className="font-serif text-xl text-coklat-gelap transition group-hover:text-soga">
+              {siteData.shortName}
+            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-soga/75">Portal Budaya Tegal</p>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.href)
-                    ? "border-soga text-coklat-gelap"
-                    : "border-transparent text-soga hover:border-emas-redup hover:text-coklat-gelap"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <div className="-mr-2 flex items-center sm:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-soga hover:text-coklat-gelap hover:bg-krem focus:outline-none focus:ring-2 focus:ring-inset focus:ring-soga"
-            >
-              <span className="sr-only">Buka menu utama</span>
-              {!isOpen ? (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              ) : (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
+        </Link>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="sm:hidden bg-putih-hangat border-b border-krem">
-          <div className="pt-2 pb-3 space-y-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
+        <nav className="hidden items-center gap-1 lg:flex">
+          {navigationData.map((item) => {
+            if (item.children) {
+              return (
+                <div key={item.label} className="group relative">
+                  <button className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-soga transition hover:bg-white/60 hover:text-coklat-gelap">
+                    {item.label}
+                    <svg className="h-4 w-4 opacity-70 transition duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className="absolute left-0 top-full hidden pt-2 group-hover:block">
+                    <div className="flex w-48 flex-col rounded-2xl border border-soga/10 bg-white/95 p-2 shadow-[0_10px_40px_rgba(43,29,20,0.08)] backdrop-blur-xl">
+                      {item.children.map((child) => (
+                        <NavLink
+                          key={child.href}
+                          to={child.href}
+                          className={({ isActive }) =>
+                            `block rounded-xl px-4 py-2.5 text-sm font-medium transition ${
+                              isActive ? "bg-krem text-coklat-gelap" : "text-soga hover:bg-krem/50 hover:text-coklat-gelap"
+                            }`
+                          }
+                        >
+                          {child.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <NavLink
+                key={item.href}
+                className={({ isActive }) =>
+                  `rounded-full px-4 py-2 text-sm font-medium transition ${
+                    isActive ? "bg-krem text-coklat-gelap" : "text-soga hover:bg-white/60 hover:text-coklat-gelap"
+                  }`
+                }
                 to={item.href}
-                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-                  isActive(item.href)
-                    ? "bg-krem border-soga text-coklat-gelap"
-                    : "border-transparent text-soga hover:bg-krem hover:border-emas-redup hover:text-coklat-gelap"
-                }`}
-                onClick={() => setIsOpen(false)}
               >
-                {item.name}
-              </Link>
-            ))}
-          </div>
+                {item.label}
+              </NavLink>
+            );
+          })}
+        </nav>
+
+        <div className="hidden lg:block">
+          <Button href={contactLink} rel="noreferrer" target="_blank">
+            Hubungi
+          </Button>
         </div>
-      )}
-    </nav>
+
+        <button
+          aria-expanded={isOpen}
+          aria-label="Buka menu navigasi"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-soga/15 bg-white/70 text-coklat-gelap lg:hidden"
+          onClick={() => setIsOpen((value) => !value)}
+          type="button"
+        >
+          <span className="text-lg">{isOpen ? "×" : "≡"}</span>
+        </button>
+      </Container>
+
+      {isOpen ? (
+        <div className="border-t border-soga/10 bg-putih-hangat/98 lg:hidden">
+          <Container className="flex flex-col gap-3 py-4">
+            {navigationData.map((item) => {
+              if (item.children) {
+                return (
+                  <div key={item.label} className="flex flex-col gap-1">
+                    <p className="px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-soga/60">
+                      {item.label}
+                    </p>
+                    {item.children.map((child) => {
+                      const isActive = pathname === child.href;
+                      return (
+                        <NavLink
+                          key={child.href}
+                          to={child.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`rounded-2xl px-4 py-3 pl-6 text-sm font-medium transition ${
+                            isActive
+                              ? "bg-coklat-gelap text-putih-hangat"
+                              : "bg-white/60 text-coklat-gelap hover:bg-krem"
+                          }`}
+                        >
+                          {child.label}
+                        </NavLink>
+                      );
+                    })}
+                  </div>
+                );
+              }
+
+              const isActive = pathname === item.href;
+              return (
+                <NavLink
+                  key={item.href}
+                  className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                    isActive
+                      ? "bg-coklat-gelap text-putih-hangat"
+                      : "bg-white/60 text-coklat-gelap hover:bg-krem"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                  to={item.href}
+                >
+                  {item.label}
+                </NavLink>
+              );
+            })}
+            <Button href={contactLink} rel="noreferrer" target="_blank" className="mt-2 w-full">
+              Hubungi
+            </Button>
+          </Container>
+        </div>
+      ) : null}
+    </header>
   );
 };
 

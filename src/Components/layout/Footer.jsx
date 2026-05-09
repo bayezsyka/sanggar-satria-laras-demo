@@ -1,54 +1,60 @@
 import { Link } from "react-router-dom";
+import { navigationData } from "../../constants/navigationData";
+import { serviceData } from "../../constants/serviceData";
 import { siteData } from "../../constants/siteData";
+import Container from "../ui/Container";
 
-export const Footer = () => {
-  return (
-    <footer className="bg-coklat-gelap text-putih-hangat py-12 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="font-serif text-2xl font-bold text-emas-redup mb-4">
-              {siteData.namaSanggar}
-            </h3>
-            <p className="text-krem text-sm mb-4 leading-relaxed">
-              {siteData.tagline}
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-lg mb-4 text-emas-redup">Tautan Cepat</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/" className="text-krem hover:text-putih-hangat transition-colors text-sm">
-                  Beranda
-                </Link>
-              </li>
-              <li>
-                <Link to="/tentang" className="text-krem hover:text-putih-hangat transition-colors text-sm">
-                  Tentang Kami
-                </Link>
-              </li>
-              <li>
-                <Link to="/kontak" className="text-krem hover:text-putih-hangat transition-colors text-sm">
-                  Kontak
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold text-lg mb-4 text-emas-redup">Hubungi Kami</h4>
-            <address className="not-italic text-sm text-krem space-y-2">
-              <p>{siteData.kontak.alamat}</p>
-              <p>WA: {siteData.kontak.whatsapp}</p>
-              <p>Email: {siteData.kontak.email}</p>
-            </address>
-          </div>
+const Footer = () => (
+  <footer className="border-t border-soga/10 bg-coklat-gelap py-16 text-putih-hangat">
+    <Container>
+      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="space-y-4">
+          <p className="font-serif text-3xl text-emas-redup">{siteData.name}</p>
+          <p className="max-w-md text-sm leading-7 text-putih-hangat/78">
+            Portal budaya publik untuk pementasan, edukasi, dokumentasi, dan kerja sama kebudayaan dari Desa Bengle, Kabupaten Tegal.
+          </p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emas-redup/90">
+            {siteData.motto}
+          </p>
         </div>
-        <div className="border-t border-soga/30 mt-8 pt-8 text-center text-sm text-krem/70">
-          <p>&copy; {new Date().getFullYear()} {siteData.namaSanggar}. Semua hak cipta dilindungi.</p>
+
+        <div>
+          <p className="font-semibold text-emas-redup">Navigasi cepat</p>
+          <ul className="mt-4 space-y-3 text-sm text-putih-hangat/80">
+            {navigationData.slice(0, 5).map((item) => (
+              <li key={item.href}>
+                <Link className="transition hover:text-putih-hangat" to={item.href}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-semibold text-emas-redup">Layanan utama</p>
+          <ul className="mt-4 space-y-3 text-sm text-putih-hangat/80">
+            {serviceData.slice(0, 4).map((service) => (
+              <li key={service.slug}>{service.title}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-3 text-sm text-putih-hangat/80">
+          <p className="font-semibold text-emas-redup">Kontak</p>
+          <p>{siteData.address.line}</p>
+          <p>Bagus · {siteData.contact.whatsappDisplay}</p>
+          <p>{siteData.contact.email}</p>
+          <p>Instagram/Twitter: {siteData.contact.instagram}</p>
+          <p>Facebook: {siteData.contact.facebook}</p>
         </div>
       </div>
-    </footer>
-  );
-};
+
+      <div className="mt-10 border-t border-white/10 pt-6 text-sm text-putih-hangat/65">
+        Copyright © {new Date().getFullYear()} {siteData.name}. Merawat tradisi, menghidupkan tuntunan.
+      </div>
+    </Container>
+  </footer>
+);
 
 export default Footer;

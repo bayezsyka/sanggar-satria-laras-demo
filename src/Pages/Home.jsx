@@ -1,22 +1,23 @@
-import Navbar from "../Components/layout/Navbar";
-import Footer from "../Components/layout/Footer";
-import HeroSection from "../Components/section/HeroSection";
-import IntroSection from "../Components/section/IntroSection";
-import ServiceSection from "../Components/section/ServiceSection";
-import ContactSection from "../Components/section/ContactSection";
+import HomeCTA from "../Components/section/HomeCTA";
+import HomeCulturalPortal from "../Components/section/HomeCulturalPortal";
+import HomeHero from "../Components/section/HomeHero";
+import HomeHighlights from "../Components/section/HomeHighlights";
+import HomeIntro from "../Components/section/HomeIntro";
+import HomeServicesPreview from "../Components/section/HomeServicesPreview";
+import { usePageTitle } from "../hooks/usePageTitle";
 
-export const Home = () => {
+const Home = () => {
+  usePageTitle("home");
+
   return (
-    <div className="flex flex-col min-h-screen bg-putih-hangat font-sans text-coklat-gelap">
-      <Navbar />
-      <main className="flex-grow">
-        <HeroSection />
-        <IntroSection />
-        <ServiceSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <HomeHero />
+      <HomeIntro />
+      <HomeHighlights />
+      <HomeServicesPreview />
+      <HomeCulturalPortal />
+      <HomeCTA />
+    </>
   );
 };
 

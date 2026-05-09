@@ -1,6 +1,9 @@
-export const Card = ({ children, className = "" }) => {
+const Card = ({ children, className = "" }) => {
+  const hasBg = className.includes("bg-");
   return (
-    <div className={`bg-putih-hangat rounded-2xl border border-krem shadow-sm hover:shadow-md transition-shadow duration-300 p-6 sm:p-8 ${className}`}>
+    <div
+      className={`rounded-[28px] border border-soga/10 p-6 shadow-[0_20px_50px_rgba(43,29,20,0.08)] backdrop-blur ${hasBg ? "" : "bg-white/80"} ${className}`.trim()}
+    >
       {children}
     </div>
   );

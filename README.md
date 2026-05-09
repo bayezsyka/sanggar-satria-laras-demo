@@ -1,16 +1,67 @@
-# React + Vite
+# Sanggar Putra Satria Laras
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website company profile publik berbasis React + Vite untuk Sanggar Putra Satria Laras di Desa Bengle, Kecamatan Talang, Kabupaten Tegal. Versi ini disiapkan sebagai website statis yang matang untuk profil resmi, informasi pementasan, edukasi budaya, galeri, sinema wayang, wawasan budaya, dan kontak kerja sama.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- Vite
+- React Router
+- Tailwind CSS v4
+- JavaScript JSX
 
-## React Compiler
+## Cara install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+## Menjalankan lokal
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
+
+## Build produksi
+
+```bash
+npm run build
+```
+
+Hasil build akan tersedia di folder `dist/` dan siap diunggah ke hosting statis.
+
+## Deploy ke hosting statis / Hostinger
+
+1. Jalankan `npm run build`.
+2. Unggah seluruh isi folder `dist/` ke `public_html` atau direktori tujuan hosting.
+3. Pastikan file `.htaccess` ikut terbawa agar route React Router tetap berjalan di hosting Apache/Hostinger.
+4. Jika domain final berbeda, perbarui URL kanonis di `index.html`, `public/robots.txt`, `public/sitemap.xml`, dan `src/lib/seo.js`.
+
+## Catatan
+
+Website ini adalah versi publik statis tanpa admin, backend, login, API, database, atau CMS. Seluruh konten yang biasanya dinamis saat ini dikelola dari file constants agar mudah dikembangkan di tahap berikutnya.
+
+## Folder penting
+
+- `src/Components/ui` untuk komponen reusable
+- `src/Components/layout` untuk navbar, footer, dan layout publik
+- `src/Components/section` untuk section beranda dan CTA
+- `src/Pages` untuk seluruh halaman publik
+- `src/constants` untuk data statis website
+- `src/hooks` untuk hook seperti SEO/title
+- `src/lib` untuk utilitas WhatsApp dan SEO
+- `public` untuk favicon, manifest, sitemap, robots, dan `.htaccess`
+
+## Mengganti data konten
+
+Semua data inti dapat diubah langsung dari folder `src/constants`:
+
+- `siteData.js` untuk identitas umum, kontak, sorotan, dan statistik
+- `navigationData.js` untuk menu navigasi
+- `profileData.js` untuk konten Tentang Sanggar, Ki Haryo, dan Wayang Santri
+- `serviceData.js` untuk katalog layanan
+- `eventData.js` untuk jadwal budaya
+- `galleryData.js` untuk placeholder galeri
+- `videoData.js` untuk daftar video
+- `articleData.js` untuk daftar artikel
+- `seoData.js` untuk title dan description per halaman

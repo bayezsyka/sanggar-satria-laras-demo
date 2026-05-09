@@ -1,80 +1,120 @@
-import Navbar from "../Components/layout/Navbar";
-import Footer from "../Components/layout/Footer";
-import Container from "../Components/ui/Container";
-import SectionHeader from "../Components/ui/SectionHeader";
-import Card from "../Components/ui/Card";
+import ContactCTA from "../Components/section/ContactCTA";
+import Badge from "../Components/ui/Badge";
 import Button from "../Components/ui/Button";
+import Card from "../Components/ui/Card";
+import Container from "../Components/ui/Container";
+import PageHero from "../Components/ui/PageHero";
+import SectionHeader from "../Components/ui/SectionHeader";
 import { siteData } from "../constants/siteData";
+import { usePageTitle } from "../hooks/usePageTitle";
+import { createWhatsAppLink } from "../lib/whatsapp";
 
-export const Contact = () => {
-  const waLink = `https://wa.me/62${siteData.kontak.whatsapp.substring(1)}?text=Halo%20Sanggar%20Putra%20Satria%20Laras%2C%20saya%20ingin%20bertanya%20tentang%20pementasan.`;
+const Contact = () => {
+  usePageTitle("contact");
+
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteData.mapQuery)}`;
 
   return (
-    <div className="flex flex-col min-h-screen bg-putih-hangat font-sans text-coklat-gelap">
-      <Navbar />
-      <main className="flex-grow py-16 lg:py-24">
+    <>
+      <PageHero
+        actions={[
+          {
+            label: "Chat WhatsApp",
+            href: createWhatsAppLink(
+              "Halo Sanggar Putra Satria Laras, saya ingin bertanya tentang kerja sama atau pementasan."
+            ),
+            target: "_blank",
+            rel: "noreferrer",
+          },
+        ]}
+        description="Halaman kontak ini dirancang untuk kebutuhan undangan pementasan, kerja sama budaya, edukasi, dokumentasi, media, dan riset kebudayaan."
+        eyebrow="Kontak"
+        title="Hubungi sanggar melalui narahubung resmi dan kanal publik yang jelas."
+      />
+
+      <section className="py-16 sm:py-20">
         <Container>
-          <SectionHeader 
-            title="Hubungi Sanggar" 
-            subtitle="Untuk undangan pementasan, kerja sama budaya, dokumentasi, atau diskusi kegiatan, silakan hubungi narahubung resmi sanggar."
-          />
-
-          <div className="max-w-3xl mx-auto mt-12">
-            <Card className="p-8 sm:p-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emas-redup/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-              
-              <div className="space-y-8 relative z-10">
-                <div className="flex flex-col md:flex-row md:items-start gap-4 pb-8 border-b border-krem">
-                  <div className="w-12 h-12 bg-soga/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-soga" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold font-serif text-coklat-gelap mb-1">Alamat Sanggar</h3>
-                    <p className="text-soga leading-relaxed">{siteData.kontak.alamat}</p>
+          <div className="grid gap-6 lg:grid-cols-[1fr_0.92fr]">
+            <Card className="h-full">
+              <SectionHeader
+                eyebrow="Informasi resmi"
+                title="Alamat, narahubung, email, dan sosial media."
+              />
+              <div className="mt-8 grid gap-4 text-sm leading-7 text-soga">
+                <div className="rounded-[22px] border border-soga/10 bg-krem/65 p-5">
+                  <p className="font-semibold text-coklat-gelap">Alamat lengkap</p>
+                  <p className="mt-2">{siteData.address.line}</p>
+                </div>
+                <div className="rounded-[22px] border border-soga/10 bg-white/75 p-5">
+                  <p className="font-semibold text-coklat-gelap">Narahubung</p>
+                  <p className="mt-2">{siteData.contact.contactPerson}</p>
+                  <p>{siteData.contact.whatsappDisplay}</p>
+                </div>
+                <div className="rounded-[22px] border border-soga/10 bg-white/75 p-5">
+                  <p className="font-semibold text-coklat-gelap">Email</p>
+                  <a className="mt-2 inline-block text-soga underline decoration-emas-redup/60 underline-offset-4" href={`mailto:${siteData.contact.email}`}>
+                    {siteData.contact.email}
+                  </a>
+                </div>
+                <div className="rounded-[22px] border border-soga/10 bg-white/75 p-5">
+                  <p className="font-semibold text-coklat-gelap">Sosial media</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {siteData.socials.map((social) => (
+                      <Badge key={social.label} className="bg-krem text-coklat-gelap">
+                        {social.label}: {social.value}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
-
-                <div className="flex flex-col md:flex-row md:items-start gap-4 pb-8 border-b border-krem">
-                  <div className="w-12 h-12 bg-soga/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-soga" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold font-serif text-coklat-gelap mb-1">Email Resmi</h3>
-                    <a href={`mailto:${siteData.kontak.email}`} className="text-soga hover:text-emas-redup transition-colors">
-                      {siteData.kontak.email}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:flex-row md:items-start gap-4 pb-8 border-b border-krem">
-                  <div className="w-12 h-12 bg-soga/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-soga" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold font-serif text-coklat-gelap mb-1">Media Sosial</h3>
-                    <div className="text-soga space-y-1">
-                      <p>Instagram / Twitter: {siteData.kontak.mediaSosial.instagram}</p>
-                      <p>Facebook: {siteData.kontak.mediaSosial.facebook}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 flex flex-col sm:flex-row items-center justify-between bg-krem/30 p-6 rounded-2xl">
-                  <div className="mb-4 sm:mb-0 text-center sm:text-left">
-                    <h3 className="text-lg font-bold font-serif text-coklat-gelap mb-1">WhatsApp Narahubung</h3>
-                    <p className="text-soga">Sdr. {siteData.kontak.narahubung} - {siteData.kontak.whatsapp}</p>
-                  </div>
-                  <Button href={waLink} variant="primary">
-                    Chat WhatsApp
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Button
+                    href={createWhatsAppLink(
+                      "Halo Sanggar Putra Satria Laras, saya ingin menghubungi narahubung resmi sanggar."
+                    )}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Hubungi WhatsApp
+                  </Button>
+                  <Button href={mapsLink} rel="noreferrer" target="_blank" variant="outline">
+                    Buka Google Maps
                   </Button>
                 </div>
               </div>
             </Card>
+
+            <div className="grid gap-6">
+              <Card className="h-full bg-krem/75">
+                <SectionHeader
+                  eyebrow="Untuk keperluan"
+                  title="Pilih kebutuhan yang paling dekat dengan agenda Anda."
+                />
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {siteData.contactPurposes.map((purpose) => (
+                    <Badge key={purpose} className="bg-white text-coklat-gelap">
+                      {purpose}
+                    </Badge>
+                  ))}
+                </div>
+              </Card>
+              <Card className="overflow-hidden p-0">
+                <div className="culture-pattern flex min-h-[320px] items-end bg-[linear-gradient(145deg,rgba(43,29,20,0.94),rgba(138,90,50,0.9)_55%,rgba(199,161,90,0.78))] p-6">
+                  <div className="rounded-[24px] border border-white/15 bg-white/10 p-5 backdrop-blur">
+                    <p className="text-sm uppercase tracking-[0.18em] text-putih-hangat/75">Embed map placeholder</p>
+                    <p className="mt-3 font-serif text-3xl text-putih-hangat">Desa Bengle, Talang, Kabupaten Tegal</p>
+                    <p className="mt-3 text-sm leading-7 text-putih-hangat/82">
+                      Placeholder ini sengaja tidak memakai Google Maps API. Tombol menuju pencarian alamat tetap tersedia agar siap untuk hosting statis.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </div>
         </Container>
-      </main>
-      <Footer />
-    </div>
+      </section>
+
+      <ContactCTA />
+    </>
   );
 };
 

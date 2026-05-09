@@ -1,0 +1,17 @@
+{
+  "name": "Sanggar Putra Satria Laras",
+  "short_name": "Satria Laras",
+  "description": "Portal budaya publik untuk Wayang Santri, pementasan, edukasi, dokumentasi, dan kerja sama kebudayaan dari Tegal.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf2",
+  "theme_color": "#2b1d14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

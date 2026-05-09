@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2b1d14" />
+      <stop offset="58%" stop-color="#8a5a32" />
+      <stop offset="100%" stop-color="#c7a15a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="36" />
+  <g fill="none" opacity=".15" stroke="#fffaf2">
+    <path d="M80 72h1040v486H80z" />
+    <path d="M80 150h1040M80 230h1040M80 310h1040M80 390h1040M80 470h1040" />
+    <path d="M210 72v486M340 72v486M470 72v486M600 72v486M730 72v486M860 72v486M990 72v486" />
+  </g>
+  <g fill="#fffaf2">
+    <text x="120" y="170" font-family="Georgia, serif" font-size="34" letter-spacing="8">
+      SANGGAR PUTRA SATRIA LARAS
+    </text>
+    <text x="120" y="280" font-family="Georgia, serif" font-size="72" font-weight="700">
+      Merawat Wayang,
+    </text>
+    <text x="120" y="360" font-family="Georgia, serif" font-size="72" font-weight="700">
+      Menghidupkan Tuntunan
+    </text>
+    <text x="120" y="440" font-family="Segoe UI, Arial, sans-serif" font-size="30">
+      Portal budaya publik untuk Wayang Santri, pementasan,
+    </text>
+    <text x="120" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="30">
+      edukasi, dokumentasi, dan kerja sama kebudayaan dari Tegal.
+    </text>
+  </g>
+</svg>
